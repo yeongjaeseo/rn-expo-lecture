@@ -2,78 +2,54 @@
 
 ---
 
-## **1. 준비사항**
-- **강의 전 준비**
-  - 강사는 각 학생의 PC 또는 노트북에 Node.js 환경이 설치되어 있는지 확인합니다.
-  - Node.js LTS 버전 설치 URL: [Node.js 공식 웹사이트](https://nodejs.org/)
 
+## **1. 잘 부탁드립니다! **
+1. **index. tsx에서 text 수정**
+   - <ThemedText type="title">잘 부탁드립니다!</ThemedText> 
+   
 ---
 
-## **2. Node.js LTS 버전 설치**
-1. **Node.js 다운로드 및 설치**
-   - Node.js 공식 웹사이트 접속: [Node.js](https://nodejs.org/)
-   - "LTS" 버전을 다운로드하여 설치합니다.
-   - 설치 과정에서 Node.js와 함께 npm(Node Package Manager)이 자동으로 설치됩니다.
-2. **설치 확인**
-   - 터미널 또는 명령 프롬프트를 열고 아래 명령어를 실행하여 설치를 확인합니다.
-     ```bash
-     node -v
-     ```
-     ```bash
-     npm -v
-     ```
-   - 각각 Node.js와 npm의 버전이 출력되면 정상적으로 설치된 것입니다.
+## **2. 새로운 탭 추가하기**
+1. **새로운 탭 파일 생성**
+   - (tabs) 디렉토리에 map.tsx 파일을 생성합니다.
+   - 코드 작성
+     ```tsx
+      import React from 'react';
+      import { View, Text, StyleSheet } from 'react-native';
 
+      export default function MapScreen() {
+      return (
+         <View style={styles.container}>
+            <Text style={styles.title}>지도가 들어갈 페이지에요!</Text>
+         </View>
+      );
+      }
+
+      const styles = StyleSheet.create({
+      container: {
+         flex: 1,
+         justifyContent: 'center',
+         alignItems: 'center',
+         backgroundColor: 'white',
+      },
+      title: {
+         fontSize: 20,
+         color: 'black',
+      },
+      });
+     ```
+
+2. **탭 네비게이터에 새로운 탭 추가**
+   -  Tabs 안에 아래 코드를 추가합니다.
+      ```tsx
+      <Tabs>
+      <Tabs.Screen
+        name="map"
+        options={{
+          title: 'Map',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="map" color={color} />,
+        }}
+      />
+      </Tabs>
+      ```
 ---
-
-## **3. Expo 프로젝트 생성**
-1. **명령어 실행**
-   - 터미널에서 아래 명령어를 실행하여 새로운 Expo 프로젝트를 생성합니다.
-     ```bash
-     npx create-expo-app@latest
-     ```
-2. **프로젝트 이름 입력**
-   - 실행 후, 프로젝트 이름을 입력합니다. 예: `rn-expo-lecture`
-   - 프로젝트 템플릿을 선택하는 메시지가 나오면 기본 템플릿(Blank)을 선택합니다.
-3. **설치 완료**
-   - 설치가 완료되면, 생성된 프로젝트 디렉토리로 이동합니다.
-     ```bash
-     cd rn-expo-lecture
-     ```
-
----
-
-## **4. Expo Go 앱 설치 및 실행**
-1. **Expo Go 앱 설치**
-   - 학생들은 각자의 스마트폰에서 App Store(아이폰) 또는 Google Play Store(안드로이드)를 열고, **Expo Go** 앱을 설치합니다.
-2. **Expo 프로젝트 실행**
-   - 터미널에서 아래 명령어를 실행하여 Expo 개발 서버를 시작합니다.
-     ```bash
-     npm start
-     ```
-3. **개발 환경과 스마트폰의 네트워크 확인**
-   - **개발 PC와 스마트폰이 동일한 Wi-Fi 네트워크에 연결되어 있어야 합니다.**
-   - 동일 네트워크 환경이 아니면 QR 코드 스캔 후 앱 실행에 문제가 발생할 수 있습니다.
-4. **QR 코드 스캔**
-   - 개발 서버 실행 후 출력된 QR 코드를 Expo Go 앱으로 스캔합니다.
-5. **템플릿 프로젝트 실행 확인**
-   - QR 코드 스캔 후, 스마트폰에서 템플릿 프로젝트가 실행되는지 확인합니다.
-
----
-
-## **5. 문제 해결**
-1. **Watchman Error 발생 시**
-   - 터미널에서 아래 절차를 따라 문제를 해결합니다:
-     ```bash
-     rm -rf node_modules
-     npm install
-     ```
-   - 위 명령어로 `node_modules` 디렉토리를 삭제하고, 패키지를 재설치합니다.
-2. **기타 문제**
-   - 네트워크 설정 및 QR 코드 스캔 과정에서 문제가 발생하면 동일 Wi-Fi 연결 여부를 다시 확인합니다.
-
----
-
-## **6. 완료**
-- Expo 프로젝트가 성공적으로 실행되었다면, 기본 설정이 완료된 것입니다.
-- 이후 커스텀 개발을 진행합니다.
