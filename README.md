@@ -1,4 +1,4 @@
-# 0-1 node, expo 설치 및 실행**
+# 0-2 Map 탭 추가하기 **
 
 ---
 
@@ -6,7 +6,7 @@
 ## **1. 잘 부탁드립니다! **
 1. **index. tsx에서 text 수정**
    - <ThemedText type="title">잘 부탁드립니다!</ThemedText> 
-   
+
 ---
 
 ## **2. 새로운 탭 추가하기**
