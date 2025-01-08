@@ -12,7 +12,7 @@
 ## **2. 새로운 탭 추가하기**
 1. **새로운 탭 파일 생성**
    - (tabs) 디렉토리에 map.tsx 파일을 생성합니다.
-   - 코드 작성
+   - map.tsx안에 아래 코드를 작성합니다.
      ```tsx
       import React from 'react';
       import { View, Text, StyleSheet } from 'react-native';
@@ -40,9 +40,8 @@
      ```
 
 2. **탭 네비게이터에 새로운 탭 추가**
-   -  Tabs 안에 아래 코드를 추가합니다.
+   -  <Tabs></Tabs> 안에 아래 코드를 추가합니다.
       ```tsx
-      <Tabs>
       <Tabs.Screen
         name="map"
         options={{
@@ -50,6 +49,5 @@
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="map" color={color} />,
         }}
       />
-      </Tabs>
       ```
 ---
