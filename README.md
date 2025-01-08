@@ -33,12 +33,12 @@
      npx create-expo-app@latest
      ```
 2. **프로젝트 이름 입력**
-   - 실행 후, 프로젝트 이름을 입력합니다. 예: `my-first-app`
+   - 실행 후, 프로젝트 이름을 입력합니다. 예: `rn-expo-lecture`
    - 프로젝트 템플릿을 선택하는 메시지가 나오면 기본 템플릿(Blank)을 선택합니다.
 3. **설치 완료**
    - 설치가 완료되면, 생성된 프로젝트 디렉토리로 이동합니다.
      ```bash
-     cd my-first-app
+     cd rn-expo-lecture
      ```
 
 ---
