@@ -1,50 +1,79 @@
-# Welcome to your Expo app 👋
+# 0-1 node, expo 설치 및 실행**
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+---
 
-## Get started
+## **1. 준비사항**
+- **강의 전 준비**
+  - 강사는 각 학생의 PC 또는 노트북에 Node.js 환경이 설치되어 있는지 확인합니다.
+  - Node.js LTS 버전 설치 URL: [Node.js 공식 웹사이트](https://nodejs.org/)
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## **2. Node.js LTS 버전 설치**
+1. **Node.js 다운로드 및 설치**
+   - Node.js 공식 웹사이트 접속: [Node.js](https://nodejs.org/)
+   - "LTS" 버전을 다운로드하여 설치합니다.
+   - 설치 과정에서 Node.js와 함께 npm(Node Package Manager)이 자동으로 설치됩니다.
+2. **설치 확인**
+   - 터미널 또는 명령 프롬프트를 열고 아래 명령어를 실행하여 설치를 확인합니다.
+     ```bash
+     node -v
+     ```
+     ```bash
+     npm -v
+     ```
+   - 각각 Node.js와 npm의 버전이 출력되면 정상적으로 설치된 것입니다.
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## **3. Expo 프로젝트 생성**
+1. **명령어 실행**
+   - 터미널에서 아래 명령어를 실행하여 새로운 Expo 프로젝트를 생성합니다.
+     ```bash
+     npx create-expo-app@latest
+     ```
+2. **프로젝트 이름 입력**
+   - 실행 후, 프로젝트 이름을 입력합니다. 예: `my-first-app`
+   - 프로젝트 템플릿을 선택하는 메시지가 나오면 기본 템플릿(Blank)을 선택합니다.
+3. **설치 완료**
+   - 설치가 완료되면, 생성된 프로젝트 디렉토리로 이동합니다.
+     ```bash
+     cd my-first-app
+     ```
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## **4. Expo Go 앱 설치 및 실행**
+1. **Expo Go 앱 설치**
+   - 학생들은 각자의 스마트폰에서 App Store(아이폰) 또는 Google Play Store(안드로이드)를 열고, **Expo Go** 앱을 설치합니다.
+2. **Expo 프로젝트 실행**
+   - 터미널에서 아래 명령어를 실행하여 Expo 개발 서버를 시작합니다.
+     ```bash
+     npm start
+     ```
+3. **개발 환경과 스마트폰의 네트워크 확인**
+   - **개발 PC와 스마트폰이 동일한 Wi-Fi 네트워크에 연결되어 있어야 합니다.**
+   - 동일 네트워크 환경이 아니면 QR 코드 스캔 후 앱 실행에 문제가 발생할 수 있습니다.
+4. **QR 코드 스캔**
+   - 개발 서버 실행 후 출력된 QR 코드를 Expo Go 앱으로 스캔합니다.
+5. **템플릿 프로젝트 실행 확인**
+   - QR 코드 스캔 후, 스마트폰에서 템플릿 프로젝트가 실행되는지 확인합니다.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## **5. 문제 해결**
+1. **Watchman Error 발생 시**
+   - 터미널에서 아래 절차를 따라 문제를 해결합니다:
+     ```bash
+     rm -rf node_modules
+     npm install
+     ```
+   - 위 명령어로 `node_modules` 디렉토리를 삭제하고, 패키지를 재설치합니다.
+2. **기타 문제**
+   - 네트워크 설정 및 QR 코드 스캔 과정에서 문제가 발생하면 동일 Wi-Fi 연결 여부를 다시 확인합니다.
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## **6. 완료**
+- Expo 프로젝트가 성공적으로 실행되었다면, 기본 설정이 완료된 것입니다.
+- 이후 커스텀 개발을 진행합니다.
