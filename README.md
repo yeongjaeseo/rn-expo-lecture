@@ -39,7 +39,12 @@
       });
      ```
 
-2. **탭 네비게이터에 새로운 탭 추가**
+2. **탭 아이콘 심볼 추가**
+   -  components/ui/IconSymbol.tsx에 MAPPING에 아래 코드 추가
+      ```tsx
+      'map.fill': 'map',
+      ```
+3. **탭 네비게이터에 새로운 탭 추가**
    -  Tabs 태그 안에 아래 코드를 추가합니다.
       ```tsx
       <Tabs.Screen
