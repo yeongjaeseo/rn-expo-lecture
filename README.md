@@ -1,97 +1,106 @@
-# 0-5 지도 검색창 만들기 **
+# 0-6 주변 건물 조회 버튼 만들기 **
 
 ---
 
-## **1. 지도 검색창 만들기**
-1. **검색창 만들기**
-   - app/components/SearchBar.tsx
+## **1. 주변 건물 조회 버튼 만들기**
+1. **컴포넌트 만들기**
+   - app/components/LoadingButton.tsx
      ```tsx
       import React from 'react';
-      import { StyleSheet, TextInput, View, Platform } from 'react-native';
+      import {
+        TouchableOpacity,
+        Text,
+        ActivityIndicator,
+        StyleSheet,
+        ViewStyle,
+        TextStyle,
+        Dimensions,
+        Platform,
+      } from 'react-native';
       import { SafeAreaView } from 'react-native-safe-area-context';
 
-      type SearchBarProps = {
-        search: string;
-        setSearch: (text: string) => void;
-      };
+      interface LoadingButtonProps {
+        title: string;
+        isLoading: boolean;
+        style?: ViewStyle;
+        textStyle?: TextStyle;
+        [key: string]: any;
+      }
 
-      export function SearchBar({ search, setSearch }: SearchBarProps) {
+      const LoadingButton: React.FC<LoadingButtonProps> = ({
+        title,
+        isLoading,
+        style,
+        textStyle,
+        ...props
+      }) => {
         return (
           <SafeAreaView style={styles.safeArea}>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="검색창이요"
-              value={search}
-              onChangeText={setSearch}
-            />
+            <TouchableOpacity
+              style={[styles.button, style]}
+              disabled={isLoading}
+              {...props}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={[styles.text, textStyle]}>{title}</Text>
+              )}
+            </TouchableOpacity>
           </SafeAreaView>
         );
-      }
+      };
 
       const styles = StyleSheet.create({
         safeArea: {
           position: 'absolute',
-          top: 10,
-          width: '100%',
+          bottom: Platform.OS === 'ios' ? 60 : 20, // iOS와 Android 하단 여백 처리
           alignItems: 'center',
+          width: 50, // 화면 전체 너비
         },
-        searchInput: {
-          height: 40,
-          width: '90%',
-          borderColor: 'gray',
-          borderWidth: 1,
-          borderRadius: 5,
-          paddingHorizontal: 10,
-          backgroundColor: 'white',
+        button: {
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'blue',
+          width: 150, // 버튼이 화면 너비의 80%를 차지
+          height: 50, // 버튼 높이
+          borderRadius: 25, // 둥근 버튼
+        },
+        text: {
+          color: 'white',
+          fontSize: 16,
+          fontWeight: 'bold',
         },
       });
-     ```
-   - SafeAreaView 안에 TextInput
-     ```tsx
-      <SafeAreaView style={styles.safeArea}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search here..."
-          value={search}
-          onChangeText={setSearch}
-        />
-      </SafeAreaView>
-     ```
-    - style 적용
-     ```tsx
-      safeArea: {
-        position: 'absolute',
-        top: Platform.OS === 'android' ? 25 : 0, // Adjust for Android
-        width: '100%',
-        alignItems: 'center',
-      },
-      searchInput: {
-        height: 40,
-        width: '90%',
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        backgroundColor: 'white',
-        marginTop: Platform.OS === 'android' ? 10 : 0, // Adjust for Android
-      },
+
+      export default LoadingButton;
      ```
 
 ---
-1. **지도에 검색창 넣기**
+2. **지도에 버튼 넣기**
    - app/(tabs)/map.tsx
-   - import SearchBar Component
+   - import LoadingButton Component
      ```tsx
-      import { SearchBar } from '@/components/SearchBar';
+      import LoadingButton from '@/components/LoadingButton';
      ```
-   - View 태그 안에 SearchBar 추가하기
+   - useState
      ```tsx
-      <SearchBar search={search} setSearch={setSearch} />
+        const [isLoading, setIsLoading] = useState(false);
      ```
-
-    - 
-     
+   - useState
+     ```tsx
+      const handleButtonPress = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false); // 로딩 완료 처리
+        }, 2000);
+      };
+     ```
+    - View 태그 안에 LoadingButton 추가하기
+      ```tsx
+       <LoadingButton title="주변 건물 조회" isLoading={isLoading} onPress={handleButtonPress} />
+      ```
 ---
 
 ### 결과
-위 코드를 사용하면 지도화면 상단에 textInput 검색 창을 만듭니다.🎯
+위 코드를 사용하면 지도화면 하단부에 주변 건물 조회버튼을 만들고 누르면 2초 로딩.🎯

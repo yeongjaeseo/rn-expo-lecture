@@ -3,10 +3,12 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { SearchBar } from '@/components/SearchBar';
+import LoadingButton from '@/components/LoadingButton';
 
 export default function MapScreen() {
   const [search, setSearch] = useState('');
   const [location, setLocation] = useState<Location.LocationObject | null>(null); // Location object
+  const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
     async function getCurrentLocation() { // Get the user's current location
@@ -22,6 +24,13 @@ export default function MapScreen() {
     }
     getCurrentLocation();
   }, []);
+
+  const handleButtonPress = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false); // 로딩 완료 처리
+    }, 2000);
+  };
 
   return (
     <View style={styles.container}>
@@ -41,6 +50,7 @@ export default function MapScreen() {
         }}
       />
       <SearchBar search={search} setSearch={setSearch} />
+      <LoadingButton title="주변 건물 조회" isLoading={isLoading} onPress={handleButtonPress} />
     </View>
   );
 }
