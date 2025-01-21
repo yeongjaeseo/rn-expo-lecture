@@ -1,54 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Polygon } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { SearchBar } from '@/components/SearchBar';
 import LoadingButton from '@/components/LoadingButton';
+import { useMapStore } from '@/stores/MapStore';
 
 export default function MapScreen() {
+  const { region, polygons, setRegion, fetchPolygons } = useMapStore(); // zustand 상태와 함수 가져오기
   const [search, setSearch] = useState('');
-  const [location, setLocation] = useState<Location.LocationObject | null>(null); // Location object
   const [isLoading, setIsLoading] = useState(false);
-  
+
+  // 초기 위치 가져오기
   useEffect(() => {
-    async function getCurrentLocation() { // Get the user's current location
-      let { status } = await Location.requestForegroundPermissionsAsync();
+    async function getCurrentLocation() {
+      const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      // console.log(location);
+      const location = await Location.getCurrentPositionAsync({});
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.02,
+      });
     }
     getCurrentLocation();
   }, []);
 
-  const handleButtonPress = () => {
+  // 버튼 클릭 핸들러
+  const handleButtonPress = async () => {
+    if (!region) return;
+
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false); // 로딩 완료 처리
-    }, 2000);
+    await fetchPolygons(region.latitude, region.longitude); // zustand에서 fetchPolygons 호출
+    setIsLoading(false);
   };
 
   return (
     <View style={styles.container}>
-      <MapView 
+      <MapView
         style={styles.map}
-        showsUserLocation={true} // Show the user's location
-        region={location ? { // initial region에 설정했던 값은 false에 이동
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.02,
-        } : {
-          latitude: 37.5665,
-          longitude: 126.9780,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.02,
-        }}
-      />
+        showsUserLocation
+        region={region || undefined}
+        onRegionChangeComplete={(newRegion) => setRegion(newRegion)} // 지도 이동 시 중심 좌표 업데이트
+      >
+        {polygons.map((polygon) => (
+          <Polygon
+            key={polygon.id}
+            coordinates={polygon.coordinates}
+            strokeColor="#FF0000" // 폴리곤 테두리 색상
+            fillColor="rgba(255,0,0,0.3)" // 폴리곤 내부 색상 (반투명)
+            strokeWidth={2}
+          />
+        ))}
+      </MapView>
       <SearchBar search={search} setSearch={setSearch} />
       <LoadingButton title="주변 건물 조회" isLoading={isLoading} onPress={handleButtonPress} />
     </View>
